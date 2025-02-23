@@ -24,9 +24,9 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_huggingface import HuggingFaceEmbeddings
 
-import chromadb
+# import chromadb
 
-chromadb.api.client.SharedSystemClient.clear_system_cache()
+# chromadb.api.client.SharedSystemClient.clear_system_cache()
 
 class ChatbotRAGFromText:
     def __init__(self, chat_model):
@@ -72,6 +72,8 @@ class ChatbotRAGFromText:
             loader = CSVLoader(path)
         else:
             raise ValueError(f"Unsupported file format: {tag}")
+        
+        # YoutubeAudioLoader()
 
         # loader = TextLoader(path)
         docs = loader.load()
