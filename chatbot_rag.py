@@ -1,6 +1,6 @@
 import os
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 from langchain_groq import ChatGroq
 
@@ -29,11 +29,11 @@ from langchain_huggingface import HuggingFaceEmbeddings
 # chromadb.api.client.SharedSystemClient.clear_system_cache()
 
 class ChatbotRAGFromText:
-    def __init__(self, chat_model):
+    def __init__(self, chat_model, embedding_model, groq_api_key, hf_token):
         self.store = {}
         self.chat_model = chat_model
 
-        groq_api_key = os.getenv("GROQ_API_KEY")
+        # groq_api_key = os.getenv("GROQ_API_KEY")
         if not groq_api_key:
             raise ValueError("GROQ_API_KEY not set in environment variables.")
 
@@ -43,8 +43,9 @@ class ChatbotRAGFromText:
 
         print("Loading Embeddings...")
         try:
-            os.environ['HF_TOKEN'] = os.getenv("HF_TOKEN")
-            self.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+            # os.environ['HF_TOKEN'] = os.getenv("HF_TOKEN")
+            os.environ['HF_TOKEN'] = hf_token
+            self.embeddings = HuggingFaceEmbeddings(model_name=embedding_model)
             # embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
             print("Embeddings loaded successfully!")
         except Exception as e:

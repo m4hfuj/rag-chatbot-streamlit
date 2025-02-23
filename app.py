@@ -31,8 +31,11 @@ CHAT_MODEL = st.sidebar.selectbox("Choose Chat Model", chat_model_options)
 
 embeddings_options = ["all-MiniLM-L6-v2", "Alibaba-NLP/gte-Qwen2-7B-instruct"]
 EMBEDDING_MODEL = st.sidebar.selectbox("Choose Embedding Model", embeddings_options)
+EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
-chatbot = ChatbotRAGFromText(CHAT_MODEL)
+groq_api_key = st.secrets["GROQ_API_KEY"]
+hf_token = st.secrets["HF_TOKEN"]
+chatbot = ChatbotRAGFromText(CHAT_MODEL, EMBEDDING_MODEL, groq_api_key, hf_token)
 
 # File Upload
 uploaded_file = st.file_uploader("Upload a file")
@@ -95,3 +98,4 @@ if "temp_filename" in st.session_state:
     if os.path.exists(st.session_state.temp_filename):
         os.remove(st.session_state.temp_filename)
         del st.session_state.temp_filename
+
