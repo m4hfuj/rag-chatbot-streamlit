@@ -1,4 +1,3 @@
-streamlit
 tempfile
 langchain_groq
 langchain_community
